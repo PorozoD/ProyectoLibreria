@@ -1,0 +1,15 @@
+using System;
+
+namespace proyectolibreria.Models
+{
+    public class Venta
+    {
+        public int Id { get; set; }
+        public int IdProducto { get; set; }
+        public int IdCliente { get; set; }
+        public int Cantidad { get; set; }
+        public DateTime Fecha { get; set; }
+        public string NombreProducto { get; set; } = string.Empty;
+        public string NombreCliente { get; set; } = string.Empty;
+    }
+}

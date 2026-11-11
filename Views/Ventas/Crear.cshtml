@@ -1,0 +1,44 @@
+@using Microsoft.AspNetCore.Mvc.Rendering
+@model proyectolibreria.Models.VentaForm
+
+@{
+    ViewData["Title"] = "Nueva Venta";
+}
+
+<div class="row justify-content-center">
+    <div class="col-md-6">
+        <div class="card shadow-sm">
+            <div class="card-body">
+                <h2 class="text-danger mb-4">➕ Registrar Nueva Venta</h2>
+
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+                <form asp-controller="Ventas" asp-action="Crear" method="post">
+                    <div class="mb-3">
+                        <label class="form-label fw-bold">Libro</label>
+                        <select asp-for="IdProducto" asp-items="@(ViewBag.Libros as List<SelectListItem>)" class="form-select">
+                            <option value="0">-- Elige un libro --</option>
+                        </select>
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label fw-bold">Lector</label>
+                        <select asp-for="IdCliente" asp-items="@(ViewBag.Lectores as List<SelectListItem>)" class="form-select">
+                            <option value="0">-- Elige un lector --</option>
+                        </select>
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label fw-bold">Cantidad</label>
+                        <input asp-for="Cantidad" type="number" min="1" class="form-control" />
+                    </div>
+
+                    <div class="d-flex justify-content-between">
+                        <a asp-action="Index" class="btn btn-secondary">Volver</a>
+                        <button type="submit" class="btn btn-danger">Guardar Venta</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
