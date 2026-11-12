@@ -1,32 +1,51 @@
-CREATE DATABASE IF NOT EXISTS taller;
-USE taller;
+CREATE DATABASE biblioteca_unifranz;
+USE biblioteca_unifranz;
 
-CREATE TABLE IF NOT EXISTS producto (
-    id_producto INT AUTO_INCREMENT PRIMARY KEY,
-    nombre VARCHAR(255) NOT NULL,
-    precio INT NOT NULL,
-    stock INT NOT NULL
+CREATE TABLE categoria (
+    id_categoria INT AUTO_INCREMENT PRIMARY KEY,
+    nombre VARCHAR(100),
+    descripcion VARCHAR(255)
 );
 
-CREATE TABLE IF NOT EXISTS cliente (
-    id_cliente INT AUTO_INCREMENT PRIMARY KEY,
-    nombre VARCHAR(255) NOT NULL,
-    telefono VARCHAR(50) NOT NULL
+CREATE TABLE libro (
+    id_libro INT AUTO_INCREMENT PRIMARY KEY,
+    titulo VARCHAR(255),
+    autor VARCHAR(255),
+    isbn VARCHAR(20),
+    editorial VARCHAR(255),
+    anio_publicacion INT,
+    id_categoria INT,
+    FOREIGN KEY (id_categoria) REFERENCES categoria(id_categoria)
 );
 
-CREATE TABLE IF NOT EXISTS editorial (
-    id_editorial INT AUTO_INCREMENT PRIMARY KEY,
-    nombre VARCHAR(255) NOT NULL,
-    telefono VARCHAR(50) NOT NULL,
-    pais VARCHAR(100) NOT NULL
+CREATE TABLE ejemplar (
+    id_ejemplar INT AUTO_INCREMENT PRIMARY KEY,
+    codigo_barras VARCHAR(50),
+    estado VARCHAR(50),
+    ubicacion VARCHAR(100),
+    id_libro INT,
+    FOREIGN KEY (id_libro) REFERENCES libro(id_libro)
 );
 
-CREATE TABLE IF NOT EXISTS venta (
-    id_venta INT AUTO_INCREMENT PRIMARY KEY,
-    id_producto INT NOT NULL,
-    id_cliente INT NOT NULL,
-    cantidad INT NOT NULL,
-    fecha DATETIME DEFAULT CURRENT_TIMESTAMP,
-    FOREIGN KEY (id_producto) REFERENCES producto(id_producto),
-    FOREIGN KEY (id_cliente) REFERENCES cliente(id_cliente)
+CREATE TABLE usuario (
+    id_usuario INT AUTO_INCREMENT PRIMARY KEY,
+    nombre VARCHAR(100),
+    apellido VARCHAR(100),
+    correo VARCHAR(150),
+    tipo_usuario VARCHAR(50),
+    contrasena VARCHAR(255),
+    estado VARCHAR(50)
+);
+
+CREATE TABLE prestamo (
+    id_prestamo INT AUTO_INCREMENT PRIMARY KEY,
+    fecha_prestamo DATE,
+    fecha_limite DATE,
+    fecha_devolucion DATE,
+    estado VARCHAR(50),
+    dias_mora INT,
+    id_usuario INT,
+    id_ejemplar INT,
+    FOREIGN KEY (id_usuario) REFERENCES usuario(id_usuario),
+    FOREIGN KEY (id_ejemplar) REFERENCES ejemplar(id_ejemplar)
 );
